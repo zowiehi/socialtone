@@ -1,0 +1,26 @@
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-default {
+  background-color: white;
+}
+
+.wrapper {
+  height: calc(100vh - 50px);
+  width: 100vw;
+}
+
+#search {
+  width: 100%;
+  margin-top: 33vh;
+
+  .input-group {
+    max-width: 80vw;
+    width: 500px;
+    margin: 0 auto;
+    padding: 0;
+  }
+}
