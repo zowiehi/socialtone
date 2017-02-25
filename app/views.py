@@ -1,10 +1,19 @@
-from django.shortcuts import render
 
+import json
 
+from django.http import HttpResponse
+from django.views.generic import TemplateView
 
 # Create your views here.
-def index(request):
-    return render(request, 'app/index.html')
+class MainPage(TemplateView):
+    template_name = 'app/index.html'
 
 
-def show_results(request):
+class ResultsPage(TemplateView):
+    template_name = 'app/search.html'
+
+
+def scrape_all(request):
+    if request.GET:
+        query = request.GET.get('search')
+        return HttpResponse(json.dumps(query), content_type="application/json")
