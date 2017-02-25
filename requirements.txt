@@ -1,2 +1,4 @@
 Django==1.10.5
 psycopg2==2.6.2
+watson-developer-cloud==0.25.0
+tweepy==3.5.0
