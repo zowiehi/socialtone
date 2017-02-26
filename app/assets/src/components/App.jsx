@@ -85,10 +85,15 @@ class App extends React.Component {
                 stacked: true
               }],
               yAxes: [{
-                stacked: true
+                stacked: true,
+                ticks: {
+                  min: 0,
+                  max: 100,
+                  stepSize: 10
+                }
               }]
-          }
-        }
+          },
+        },
       });
     }
     if(hsctx){
@@ -99,9 +104,10 @@ class App extends React.Component {
 
       var hsData = {
         datasets: [{
+          label: "Sentiment Over Time",
           data: inData,
           fill: true,
-          lineTension: 0.1,
+          lineTension: 0.25,
           backgroundColor: "#60c5ba",
         }]
       };
@@ -113,10 +119,15 @@ class App extends React.Component {
           scales: {
             xAxes: [{
               type: 'time',
+            }],
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 100,
+                stepSize: 10
+              }
             }]
           },
-          responsive: true,
-          maintainAspectRatio: true
         }
       });
     }
@@ -141,8 +152,8 @@ class App extends React.Component {
               <div id="percent-box" className="col-md-6 col-xs-12">
                 <canvas id="pcChart" width="400px" height="400px"></canvas>
               </div>
-              <div id="time-box" className="col-xs-12">
-                <canvas id="hsChart" width="400px" height="400px"></canvas>
+              <div id="time-box" style={{maxWidth: '1024px', maxHeight: '500px'}} className="col-xs-12">
+                <canvas id="hsChart" width="1024" height="500"></canvas>
               </div>
             </div>
           </div>
