@@ -45,5 +45,5 @@ def scrape_all(request):
         #     ]
         # }
 
-        results['hist'] = Result.objects.filter(query=query.lower().strip())
+        results['hist'] = [obj.as_dict() for obj in Result.objects.filter(query=query.lower().strip())]
         return HttpResponse(json.dumps(results), content_type="application/json")

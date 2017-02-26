@@ -17,3 +17,15 @@ class Result(models.Model):
     disgust = models.FloatField(null=False)
     percent_positive = models.FloatField(null=False)
     percent_negative = models.FloatField(null=False)
+
+    def as_dict(self):
+        return {
+            'query': self.query,
+            'time': self.time,
+            'positive': self.positive,
+            'anger': self.anger,
+            'sadness': self.sadness,
+            'disgust': self.disgust,
+            'percent_positive': self.percent_positive,
+            'percent_negative': self.percent_negative
+        }
