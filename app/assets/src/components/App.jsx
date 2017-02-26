@@ -88,12 +88,15 @@ class App extends React.Component {
         const top_tweets = this.state.results.top_tweets;
         return (
           <div>
-            {top_tweets.map(tweet => (<div dangerouslySetInnerHTML={{__html: tweet}}></div>))}
+            <div id="top-tweets">
+              {top_tweets.map(tweet => (<div dangerouslySetInnerHTML={{__html: tweet}}></div>))}
+            </div>
             <div id="chart-box">
               <canvas id="pcChart" width="400px" height="400px"></canvas>
               <canvas id="avChart" width="400px" height="400px"></canvas>
             </div>
-          </div>);
+          </div>
+        );
       }
       return (<div className="loader"></div>);
   }

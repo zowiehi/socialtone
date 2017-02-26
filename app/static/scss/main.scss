@@ -25,11 +25,33 @@ body {
   }
 }
 
+.content {
+  width: 1024px;
+  max-width: 99%;
+  margin: 0 auto;
+}
+
 #results {
 
+  #top-tweets {
+    float: left;
+    width: 524px;
+  }
+
   #chart-box {
-    height: 500px;
-    width: 500px;
+    float: right;
+    max-height: 500px;
+    max-width: 500px;
+  }
+
+  @media screen and (max-width: 1015px) {
+    #top-tweets {
+      float: none;
+    }
+
+    #chart-box {
+      float: none;
+    }
   }
 
   .loader,
