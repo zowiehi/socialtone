@@ -23,6 +23,7 @@ class App extends React.Component {
   componentDidUpdate() {
     const avctx = document.getElementById('avChart');
     const pcctx = document.getElementById('pcChart');
+    const hsctx = document.getElementById('hsChart');
 
     if (avctx) {
       const results = this.state.results;
@@ -90,6 +91,50 @@ class App extends React.Component {
         }
       });
     }
+    if(hsctx){
+
+      const results = this.state.results
+
+      inData = []
+
+      for(let result in results.hist){
+        let vx = result.time;
+        let vy = result.positive * 100;
+        data.push({x: vx, y: vy});
+      }
+
+      var hsData = {
+        datasets: [{
+          data: inData,
+          fillL true,
+          lineTension: 1.0,
+          backgroundColor: "#60c5ba",
+        }]
+      };
+
+      var hsChart = new Chart(hsctx, {
+        type: 'line',
+        data: hsData,
+        options: {
+          scales: {
+            xAxes: [{
+              type: 'time',
+              time: {
+                displayFormats: {
+                   'millisecond': 'MMM DD',
+                   'second': 'MMM DD',
+                   'minute': 'MMM DD',
+                   'hour': 'MMM DD',
+                   'day': 'MMM DD',
+                   'week': 'MMM DD',
+                   'month': 'MMM DD',
+                   'quarter': 'MMM DD',
+                   'year': 'MMM DD',
+                }]
+          }
+        }
+      });
+    }
 
 
   }
@@ -110,6 +155,9 @@ class App extends React.Component {
               </div>
               <div id="percent-box" className="col-md-6 col-xs-12">
                 <canvas id="pcChart" width="400px" height="400px"></canvas>
+              </div>
+              <div id="percent-box" className="col-md-6 col-xs-12">
+                <canvas id="hsChart" width="400px" height="400px"></canvas>
               </div>
             </div>
           </div>

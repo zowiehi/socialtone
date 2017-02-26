@@ -44,6 +44,6 @@ def scrape_all(request):
         #         '<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Just checked in at Starbucks (Starbucks Coffee 神田駅前店) — <a href="https://t.co/629tnpyIq6">https://t.co/629tnpyIq6</a></p>— 👤 Ben Guild (@benguild) <a href="https://twitter.com/benguild/status/835741731509325825">February 26, 2017</a></blockquote>'
         #     ]
         # }
-
+        
         results['hist'] = [obj.as_dict() for obj in Result.objects.filter(query=query.lower().strip())]
         return HttpResponse(json.dumps(results), content_type="application/json")
