@@ -36,8 +36,6 @@ body {
   padding: 0;
 
   #top-tweets {
-    float: left;
-    width: 524px;
     max-width: 100%;
     margin: 0;
     padding: 0;
@@ -54,8 +52,7 @@ body {
       border-width: 1px;
       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
       padding: 0 16px 16px 16px;
-      width: 468px;
-      max-width: 100%;
+      width: 100%;
     }
 
     blockquote.twitter-tweet p {
@@ -75,22 +72,6 @@ body {
     blockquote.twitter-tweet a:hover,
     blockquote.twitter-tweet a:focus {
       text-decoration: underline;
-    }
-  }
-
-  #chart-box {
-    float: right;
-    max-height: 500px;
-    max-width: 500px;
-  }
-
-  @media screen and (max-width: 1015px) {
-    #top-tweets {
-      float: none;
-    }
-
-    #chart-box {
-      float: none;
     }
   }
 
