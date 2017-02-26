@@ -106,7 +106,7 @@ class App extends React.Component {
       var hsData = {
         datasets: [{
           data: inData,
-          fillL true,
+          fill: true,
           lineTension: 1.0,
           backgroundColor: "#60c5ba",
         }]
