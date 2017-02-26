@@ -45,5 +45,16 @@ def scrape_all(request):
         #     ]
         # }
 
+
+        Result.objects.create(
+            query=query.lower().strip(),
+            positive=results.get('positive'),
+            anger=results.get('anger'),
+            sadness=results.get('sadness'),
+            disgust=results.get('disgust'),
+            percent_positive=results.get('percent_positive'),
+            percent_negative=results.get('percent_negative')
+        )
+        
         results['hist'] = [obj.as_dict() for obj in Result.objects.filter(query=query.lower().strip())]
         return HttpResponse(json.dumps(results), content_type="application/json")
