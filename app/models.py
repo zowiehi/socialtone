@@ -21,7 +21,7 @@ class Result(models.Model):
     def as_dict(self):
         return {
             'query': self.query,
-            'time': self.time,
+            'time': str(self.time),
             'positive': self.positive,
             'anger': self.anger,
             'sadness': self.sadness,
