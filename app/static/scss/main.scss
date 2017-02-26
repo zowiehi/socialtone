@@ -76,6 +76,11 @@ body {
     }
   }
 
+  #time-box,
+  #time-box canvas {
+    height: 500px;
+  }
+
   .loader,
   .loader:before,
   .loader:after {

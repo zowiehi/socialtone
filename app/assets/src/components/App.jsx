@@ -80,34 +80,28 @@ class App extends React.Component {
         type: 'horizontalBar',
         data: pcData,
         options: {
-        scales: {
-            xAxes: [{
-              stacked: true
-            }],
-            yAxes: [{
-              stacked: true
-            }]
+          scales: {
+              xAxes: [{
+                stacked: true
+              }],
+              yAxes: [{
+                stacked: true
+              }]
           }
         }
       });
     }
     if(hsctx){
 
-      const results = this.state.results
+      const results = this.state.results;
 
-      inData = []
-
-      for(let result in results.hist){
-        let vx = result.time;
-        let vy = result.positive * 100;
-        data.push({x: vx, y: vy});
-      }
+      const inData = results.hist.map(d => ({x: d.time, y: d.percent_positive * 100}));
 
       var hsData = {
         datasets: [{
           data: inData,
-          fillL true,
-          lineTension: 1.0,
+          fill: true,
+          lineTension: 0.1,
           backgroundColor: "#60c5ba",
         }]
       };
@@ -119,19 +113,10 @@ class App extends React.Component {
           scales: {
             xAxes: [{
               type: 'time',
-              time: {
-                displayFormats: {
-                   'millisecond': 'MMM DD',
-                   'second': 'MMM DD',
-                   'minute': 'MMM DD',
-                   'hour': 'MMM DD',
-                   'day': 'MMM DD',
-                   'week': 'MMM DD',
-                   'month': 'MMM DD',
-                   'quarter': 'MMM DD',
-                   'year': 'MMM DD',
-                }]
-          }
+            }]
+          },
+          responsive: true,
+          maintainAspectRatio: true
         }
       });
     }
@@ -156,7 +141,7 @@ class App extends React.Component {
               <div id="percent-box" className="col-md-6 col-xs-12">
                 <canvas id="pcChart" width="400px" height="400px"></canvas>
               </div>
-              <div id="percent-box" className="col-md-6 col-xs-12">
+              <div id="time-box" className="col-xs-12">
                 <canvas id="hsChart" width="400px" height="400px"></canvas>
               </div>
             </div>
