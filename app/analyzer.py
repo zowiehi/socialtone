@@ -1,11 +1,15 @@
+import json
+import urllib
+
+import requests
+
 from chiedza.settings import TONE_ANALYZER
-
-
+from .apis._twitter import get_tweets
 
 def analyze(req):
 
 
-    tweets = twitter.get_tweets(req)
+    tweets = get_tweets(req)
 
     twitter_average = 0
     positive_average = 0
@@ -14,29 +18,29 @@ def analyze(req):
     disgust_average = 0
 
     tweet_count = 0
-    top_tweets = []
+    top = []
     for tweet in tweets:
         tweet_count += 1
         if(tweet_count <= 3):
-            top_tweets.append(tweet)
-        tones = TONE_ANALYZER.tone(text=tweet.text, tones=emotion)
-        positive_tone = filter(lambda x: x.tone_name == 'joy', tones.document_tone.tone_categories[0].tones)
-        positive_percent = positiveTone[0].score
+            top.append(tweet._json)
+        tones = TONE_ANALYZER.tone(text=tweet.text, tones='emotion')
+        positive_tone = list(filter(lambda x: x.get('tone_id') == 'joy', tones.get('document_tone').get('tone_categories')[0].get('tones')))
+        positive_percent = positive_tone[0].get('score')
         positive_average += positive_percent
 
-        angerTone = filter(lambda x: x.tone_name == 'anger', tones.document_tone.tone_categories[0].tones)
-        negativePercent = angerTone[0].score
-        anger_average += angerTone[0].score
+        anger_tone = list(filter(lambda x: x.get('tone_id') == 'anger', tones.get('document_tone').get('tone_categories')[0].get('tones')))
+        negativePercent = anger_tone[0].get('score')
+        anger_average += anger_tone[0].get('score')
 
-        sadnessTone = filter(lambda x: x.tone_name == 'sadness', tones.document_tone.tone_categories[0].tones)
-        negativePercent += sadnessTone[0].score
-        sadness_average += sadnessTone[0].score
+        sadness_tone = list(filter(lambda x: x.get('tone_id') == 'sadness', tones.get('document_tone').get('tone_categories')[0].get('tones')))
+        negativePercent += sadness_tone[0].get('score')
+        sadness_average += sadness_tone[0].get('score')
 
-        disgustTone = filter(lambda x: x.tone_name == 'disgust', tones.document_tone.tone_categories[0].tones)
-        negativePercent += disgustTone[0].score
-        disgust_average += disgustTone[0].score
+        disgust_tone = list(filter(lambda x: x.get('tone_id') == 'disgust', tones.get('document_tone').get('tone_categories')[0].get('tones')))
+        negativePercent += disgust_tone[0].get('score')
+        disgust_average += disgust_tone[0].get('score')
 
-        score = positivePercent * 5
+        score = positive_percent * 5
         twitter_average += score
 
     twitter_average /= tweet_count
@@ -45,11 +49,22 @@ def analyze(req):
     sadness_average /= tweet_count
     disgust_average /= tweet_count
 
+    top_tweets = []
+    for tweet in top:
+        uri = {'url' : 'https://twitter.com/%s/status/%s' % (tweet.get('user').get('screen_name'), tweet.get('id_str')), 'omit_script': True }
+        encoded = urllib.parse.urlencode(uri)
+        r = requests.get('https://publish.twitter.com/oembed?=%s' % encoded)
+        top_tweets.append(r.json().get('html'))
+
     results = {
-    'twitter_average' : twitter_average,
-    'positive' : positive_average,
-    'anger' : anger_average,
-    'sadness' : sadness_average,
-    'disgust' : disgust_average,
-    'top_tweets' : top_tweets
+        'twitter_average' : twitter_average,
+        'positive' : positive_average,
+        'anger' : anger_average,
+        'sadness' : sadness_average,
+        'disgust' : disgust_average,
+        'top_tweets' : top_tweets
     }
+
+    print(results)
+
+    return results
