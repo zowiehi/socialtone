@@ -20,6 +20,17 @@ def scrape_all(request):
     if request.GET:
         query = request.GET.get('search')
         results = analyze(query)
+
+        Result.objects.create(
+            query=query.lower().strip(),
+            positive=results.get('positive'),
+            anger=results.get('anger'),
+            sadness=results.get('sadness'),
+            disgust=results.get('disgust'),
+            percent_positive=results.get('percent_positive'),
+            percent_negative=results.get('percent_negative')
+        )
+
         # results = {
         #     'positive': 0.15,
         #     'anger': 0.15,
@@ -33,4 +44,6 @@ def scrape_all(request):
         #         '<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Just checked in at Starbucks (Starbucks Coffee 神田駅前店) — <a href="https://t.co/629tnpyIq6">https://t.co/629tnpyIq6</a></p>— 👤 Ben Guild (@benguild) <a href="https://twitter.com/benguild/status/835741731509325825">February 26, 2017</a></blockquote>'
         #     ]
         # }
+
+        results['hist'] = Result.objects.filter(query=query.lower().strip())
         return HttpResponse(json.dumps(results), content_type="application/json")
