@@ -23,6 +23,7 @@ class App extends React.Component {
   componentDidUpdate() {
     const avctx = document.getElementById('avChart');
     const pcctx = document.getElementById('pcChart');
+    const hsctx = document.getElementById('hsChart');
 
     if (avctx) {
       const results = this.state.results;
@@ -85,6 +86,30 @@ class App extends React.Component {
             }],
             yAxes: [{
               stacked: true
+            }]
+          }
+        }
+      });
+    }
+    if(hsctx){
+
+      const results = this.state.results
+      var hsData = {
+        datasets: [{
+          data: [{
+
+          }]
+        }]
+      };
+
+      var hsChart = new Chart(hsctx, {
+        type: 'line',
+        data: hsData,
+        options: {
+          scales: {
+            xAxes: [{
+              type: 'linear',
+              position: 'bottom'
             }]
           }
         }
