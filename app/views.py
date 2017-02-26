@@ -37,7 +37,9 @@ class TrendingPage(ListView):
     def get_queryset(self):
         queryset = Result.objects.filter(time__gte=timezone.now().date() - timedelta(days=7))
         result = functools.reduce(self._reduce, queryset, {})
-        return result
+        result = [{'value': x, 'count': y} for x, y in result.items()]
+        sorted(result, key=lambda x: x['count'])
+        return result[:10]
 
 
 
