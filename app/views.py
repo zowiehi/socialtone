@@ -16,6 +16,10 @@ class MainPage(TemplateView):
     template_name = 'app/index.html'
 
 
+class AboutPage(TemplateView):
+    template_name = 'app/about.html'
+
+
 class ResultsPage(TemplateView):
     template_name = 'app/search.html'
 

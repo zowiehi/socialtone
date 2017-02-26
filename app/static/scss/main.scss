@@ -32,6 +32,15 @@ body {
   margin: 0 auto;
 }
 
+  #watson {
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    img {
+      width: 75px;
+    }
+  }
+
 #results {
   margin: 0;
   padding: 0;

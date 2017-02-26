@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
   <div id="search">
@@ -10,5 +11,8 @@
         </span>
       </div>
     </form>
+    <div id="watson">
+      <a href="https://www.ibm.com/watson/"><img src="{% static 'img/watson.png'%}" alt=""></a>
+    </div>
   </div>
 {% endblock %}
