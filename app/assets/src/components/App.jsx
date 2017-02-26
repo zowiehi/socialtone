@@ -15,7 +15,6 @@ class App extends React.Component {
     fetch(`/api?search=${query.s}`)
     .then(response => response.json())
     .then(json => {
-      console.log(json);
       this.setState({ results: json, loaded: true })
     });
   }
