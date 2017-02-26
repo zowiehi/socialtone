@@ -107,7 +107,6 @@ class App extends React.Component {
           label: "Sentiment Over Time",
           data: inData,
           fill: true,
-          lineTension: 0.25,
           backgroundColor: "#60c5ba",
         }]
       };
