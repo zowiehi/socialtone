@@ -21,7 +21,7 @@ def scrape_all(request):
         query = request.GET.get('search')
         results = analyze(query)
         Result.objects.create(
-            query=query,
+            query=query.lower().strip(),
             positive=results.get('positive'),
             anger=results.get('anger'),
             sadness=results.get('sadness'),
@@ -29,4 +29,6 @@ def scrape_all(request):
             percent_positive=results.get('percent_positive'),
             percent_negative=results.get('percent_negative')
         )
+
+        results['hist'] = Result.objects.filter(query=query.lower().strip())
         return HttpResponse(json.dumps(results), content_type="application/json")
