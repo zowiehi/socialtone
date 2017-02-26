@@ -65,6 +65,4 @@ def analyze(req):
         'top_tweets' : top_tweets
     }
 
-    print(results)
-
     return results
