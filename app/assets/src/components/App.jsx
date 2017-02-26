@@ -21,7 +21,7 @@ class App extends React.Component {
 
   componentDidUpdate() {
     const avctx = document.getElementById('avChart');
-    const pcctx = document.getElementbyId('pcChart');
+    const pcctx = document.getElementById('pcChart');
 
     if (avctx) {
       const results = this.state.results;
@@ -56,27 +56,39 @@ class App extends React.Component {
 
     if (pcctx) {
       const results = this.state.results;
-
       const pcData = {
         labels: [
           "Negative",
           "Positive"
         ],
         datasets: [{
+          label: 'Percent Sentiment',
           data: [
             results.percent_negative * 100,
             results.percent_positive * 100
-          ]
+          ],
           backgroundColor: [
-            "#a5dff9",
-            "#a5dff9"
+
+            "#ef5285",
+            "#60c5ba"
           ]
         }]
       };
 
       var pcChart = new Chart(pcctx, {
         type: 'bar',
-        data: pcData
+        data: pcData,
+        options: {
+        scales: {
+                xAxes: [{
+                    stacked: true
+                }],
+                yAxes: [{
+                    stacked: true,
+                    max: 100
+                }]
+            }
+        }
       });
     }
 

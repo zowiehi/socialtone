@@ -11,8 +11,8 @@ def analyze(req):
 
     tweets = get_tweets(req)
 
-    most_positive = null
-    most_negative = null
+    most_positive = None
+    most_negative = None
 
     twitter_average = 0
     positive_average = 0

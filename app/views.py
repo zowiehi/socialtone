@@ -29,15 +29,4 @@ def scrape_all(request):
             percent_positive=results.get('percent_positive'),
             percent_negative=results.get('percent_negative')
         )
-        # results = {
-        #     'positive': 0.15,
-        #     'anger': 0.15,
-        #     'sadness': 0.15,
-        #     'disgust': 0.15,
-        #     'top_tweets': [
-        #         '<blockquote><p>test</p></blockquote>',
-        #         '<blockquote><p>test</p></blockquote>',
-        #         '<blockquote><p>test</p></blockquote>'
-        #     ]
-        # }
         return HttpResponse(json.dumps(results), content_type="application/json")
