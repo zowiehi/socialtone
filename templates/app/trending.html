@@ -15,7 +15,7 @@
         <tbody>
           {% for item in hot %}
           <tr>
-            <td><a href="/search?s={{item.value}}">{{ item.value }}</a></td>
+            <td><a href="{% url 'app:search' %}?s={{item.value | urlencode}}">{{ item.value }}</a></td>
             <td>{{ item.count }}</td>
           </tr>
           {% endfor %}
