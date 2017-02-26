@@ -1,8 +1,12 @@
 
+import functools
 import json
+from datetime import timedelta
 
+from django.utils import timezone
 from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from django.db.models import Sum
 
 from .analyzer import analyze
 from .models import Result
@@ -14,6 +18,23 @@ class MainPage(TemplateView):
 
 class ResultsPage(TemplateView):
     template_name = 'app/search.html'
+
+
+class TrendingPage(ListView):
+    context_object_name = 'hot'
+    template_name = 'app/trending.html'
+
+    def _reduce(self, x, y):
+        if not x.get(y.query):
+            x[y.query] = 0
+        x[y.query] += 1
+        return x
+
+    def get_queryset(self):
+        queryset = Result.objects.filter(time__gte=timezone.now().date() - timedelta(days=7))
+        result = functools.reduce(self._reduce, queryset, {})
+        return result
+
 
 
 def scrape_all(request):
