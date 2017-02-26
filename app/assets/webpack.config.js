@@ -4,7 +4,7 @@ var webpack = require('webpack');
 module.exports = {
   entry: {
     app: './src/init.js',
-    vendor: ['react', 'react-dom', 'chart.js', 'query-string']
+    vendor: ['react', 'react-dom', 'chart.js', 'query-string', 'isomorphic-fetch']
   },
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', '../static/js/vendor.bundle.js'),

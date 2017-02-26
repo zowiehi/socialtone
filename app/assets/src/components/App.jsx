@@ -1,7 +1,7 @@
 import React from 'react';
 import queryString from 'query-string';
 import Chart from 'chart.js';
-
+import fetch from 'isomorphic-fetch';
 
 
 class App extends React.Component {
