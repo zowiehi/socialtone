@@ -12,6 +12,7 @@ class App extends React.Component {
 
   componentDidMount() {
     const query = queryString.parse(location.search);
+    this.setState({ query: query.s });
     fetch(`/api?search=${query.s}`)
     .then(response => response.json())
     .then(json => {
@@ -68,7 +69,6 @@ class App extends React.Component {
             results.percent_positive * 100
           ],
           backgroundColor: [
-
             "#ef5285",
             "#60c5ba"
           ]
@@ -76,18 +76,17 @@ class App extends React.Component {
       };
 
       var pcChart = new Chart(pcctx, {
-        type: 'bar',
+        type: 'horizontalBar',
         data: pcData,
         options: {
         scales: {
-                xAxes: [{
-                    stacked: true
-                }],
-                yAxes: [{
-                    stacked: true,
-                    max: 100
-                }]
-            }
+            xAxes: [{
+              stacked: true
+            }],
+            yAxes: [{
+              stacked: true
+            }]
+          }
         }
       });
     }
@@ -100,12 +99,18 @@ class App extends React.Component {
         const top_tweets = this.state.results.top_tweets;
         return (
           <div>
-            <div id="top-tweets">
+            <div id="top-tweets" class='col-md-6 col-xs-12'>
+              <h1>Top Tweets for {`${this.state.query}`}</h1>
               {top_tweets.map(tweet => (<div dangerouslySetInnerHTML={{__html: tweet}}></div>))}
             </div>
-            <div id="chart-box">
-              <canvas id="pcChart" width="400px" height="400px"></canvas>
-              <canvas id="avChart" width="400px" height="400px"></canvas>
+            <div id="chart-box" class="row">
+              <h1>Social Sentiment</h1>
+              <div id="average-box" className="col-md-6 col-xs-12">
+                <canvas id="avChart" width="400px" height="400px"></canvas>
+              </div>
+              <div id="percent-box" className="col-md-6 col-xs-12">
+                <canvas id="pcChart" width="400px" height="400px"></canvas>
+              </div>
             </div>
           </div>
         );
