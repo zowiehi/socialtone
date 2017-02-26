@@ -80,14 +80,13 @@ class App extends React.Component {
         data: pcData,
         options: {
         scales: {
-                xAxes: [{
-                    stacked: true
-                }],
-                yAxes: [{
-                    stacked: true,
-                    max: 100
-                }]
-            }
+            xAxes: [{
+              stacked: true
+            }],
+            yAxes: [{
+              stacked: true
+            }]
+          }
         }
       });
     }
