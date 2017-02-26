@@ -20,10 +20,12 @@ class App extends React.Component {
   }
 
   componentDidUpdate() {
-    const ctx = document.getElementById('myChart');
-    if (ctx) {
+    const avctx = document.getElementById('avChart');
+    const pcctx = document.getElementbyId('pcChart');
+
+    if (avctx) {
       const results = this.state.results;
-      const chartData = {
+      const avData = {
         labels: [
           "Positive",
           "Anger",
@@ -45,12 +47,40 @@ class App extends React.Component {
           ]}]
         };
 
-        var toneChart = new Chart(ctx, {
+        var avChart = new Chart(avctx, {
           type: 'doughnut',
-          data: chartData,
+          data: avData,
           // options: options
         });
     }
+
+    if (pcctx) {
+      const results = this.state.results;
+
+      const pcData = {
+        labels: [
+          "Negative",
+          "Positive"
+        ],
+        datasets: [{
+          data: [
+            results.percent_negative * 100,
+            results.percent_positive * 100
+          ]
+          backgroundColor: [
+            "#a5dff9",
+            "#a5dff9"
+          ]
+        }]
+      };
+
+      var pcChart = new Chart(pcctx, {
+        type: 'bar',
+        data: pcData
+      });
+    }
+
+
   }
 
   render() {
@@ -60,7 +90,8 @@ class App extends React.Component {
           <div>
             {top_tweets.map(tweet => (<div dangerouslySetInnerHTML={{__html: tweet}}></div>))}
             <div id="chart-box">
-              <canvas id="myChart" width="400px" height="400px"></canvas>
+              <canvas id="pcChart" width="400px" height="400px"></canvas>
+              <canvas id="avChart" width="400px" height="400px"></canvas>
             </div>
           </div>);
       }

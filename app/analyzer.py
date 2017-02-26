@@ -11,11 +11,18 @@ def analyze(req):
 
     tweets = get_tweets(req)
 
+    most_positive = null
+    most_negative = null
+
     twitter_average = 0
     positive_average = 0
     anger_average = 0
     sadness_average = 0
     disgust_average = 0
+
+    negative_count = 0
+
+    positive_count = 0
 
     tweet_count = 0
     top = []
@@ -43,11 +50,18 @@ def analyze(req):
         score = positive_percent * 5
         twitter_average += score
 
+        if(positive_percent >= 0.5):
+            positive_count += 1
+
+
     twitter_average /= tweet_count
     positive_average /= tweet_count
     anger_average /= tweet_count
     sadness_average /= tweet_count
     disgust_average /= tweet_count
+
+    positive_count /= tweet_count
+    negative_count = 1 - positive_count
 
     top_tweets = []
     for tweet in top:
@@ -62,7 +76,9 @@ def analyze(req):
         'anger' : anger_average,
         'sadness' : sadness_average,
         'disgust' : disgust_average,
-        'top_tweets' : top_tweets
+        'top_tweets' : top_tweets,
+        'percent_positive' : positive_count,
+        'percent_negative' : negative_count
     }
 
     return results
