@@ -15,7 +15,7 @@
         <tbody>
           {% for item in hot %}
           <tr>
-            <td><a href="/search?s={{value}}">{{ item.value }}</a></td>
+            <td><a href="/search?s={{item.value}}">{{ item.value }}</a></td>
             <td>{{ item.count }}</td>
           </tr>
           {% endfor %}
