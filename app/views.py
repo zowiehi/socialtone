@@ -1,8 +1,12 @@
 
+import functools
 import json
+from datetime import timedelta
 
+from django.utils import timezone
 from django.http import HttpResponse
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
+from django.db.models import Sum
 
 from .analyzer import analyze
 from .models import Result
@@ -12,8 +16,31 @@ class MainPage(TemplateView):
     template_name = 'app/index.html'
 
 
+class AboutPage(TemplateView):
+    template_name = 'app/about.html'
+
+
 class ResultsPage(TemplateView):
     template_name = 'app/search.html'
+
+
+class TrendingPage(ListView):
+    context_object_name = 'hot'
+    template_name = 'app/trending.html'
+
+    def _reduce(self, x, y):
+        if not x.get(y.query):
+            x[y.query] = 0
+        x[y.query] += 1
+        return x
+
+    def get_queryset(self):
+        queryset = Result.objects.filter(time__gte=timezone.now().date() - timedelta(days=7))
+        result = functools.reduce(self._reduce, queryset, {})
+        result = [{'value': x, 'count': y} for x, y in result.items()]
+        sorted(result, key=lambda x: x['count'])
+        return result[:10]
+
 
 
 def scrape_all(request):
@@ -44,6 +71,5 @@ def scrape_all(request):
         #         '<blockquote class="twitter-tweet"><p lang="ja" dir="ltr">Just checked in at Starbucks (Starbucks Coffee 神田駅前店) — <a href="https://t.co/629tnpyIq6">https://t.co/629tnpyIq6</a></p>— 👤 Ben Guild (@benguild) <a href="https://twitter.com/benguild/status/835741731509325825">February 26, 2017</a></blockquote>'
         #     ]
         # }
-        
         results['hist'] = [obj.as_dict() for obj in Result.objects.filter(query=query.lower().strip())]
         return HttpResponse(json.dumps(results), content_type="application/json")

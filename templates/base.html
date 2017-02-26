@@ -22,14 +22,17 @@
             <span class="icon-bar"></span>
           </button>
           <a class="navbar-brand" href="/"><img id="nav-logo" src="{% static 'header.png' %}" height="35" width="35"></a>
+          {% if request.path != "/" %}
+            <a class="navbar-brand" href="{% url 'app:index' %}">socialtone</a>
+          {% endif %}
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Trending</a></li>
-            <li><a href="#">About</a></li>
+            <li><a href="{% url 'app:trending' %}">Trending</a></li>
+            <li><a href="{% url 'app:about' %}">About</a></li>
             <!-- <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
               <ul class="dropdown-menu">

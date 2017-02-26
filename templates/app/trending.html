@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="content">
+  <div class="row">
+    <h1>Trending Searches</h1>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th class="col-xs-8">Term</th>
+            <th class="col-xs-4">Searches (past week)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in hot %}
+          <tr>
+            <td><a href="/search?s={{value}}">{{ item.value }}</a></td>
+            <td>{{ item.count }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

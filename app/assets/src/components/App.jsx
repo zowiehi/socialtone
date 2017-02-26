@@ -80,34 +80,33 @@ class App extends React.Component {
         type: 'horizontalBar',
         data: pcData,
         options: {
-        scales: {
-            xAxes: [{
-              stacked: true
-            }],
-            yAxes: [{
-              stacked: true
-            }]
-          }
-        }
+          scales: {
+              xAxes: [{
+                stacked: true
+              }],
+              yAxes: [{
+                stacked: true,
+                ticks: {
+                  min: 0,
+                  max: 100,
+                  stepSize: 10
+                }
+              }]
+          },
+        },
       });
     }
     if(hsctx){
 
-      const results = this.state.results
+      const results = this.state.results;
 
-      inData = []
-
-      for(let result in results.hist){
-        let vx = result.time;
-        let vy = result.positive * 100;
-        data.push({x: vx, y: vy});
-      }
+      const inData = results.hist.map(d => ({x: d.time, y: d.percent_positive * 100}));
 
       var hsData = {
         datasets: [{
+          label: "Sentiment Over Time",
           data: inData,
           fill: true,
-          lineTension: 1.0,
           backgroundColor: "#60c5ba",
         }]
       };
@@ -119,19 +118,15 @@ class App extends React.Component {
           scales: {
             xAxes: [{
               type: 'time',
-              time: {
-                displayFormats: {
-                   'millisecond': 'MMM DD',
-                   'second': 'MMM DD',
-                   'minute': 'MMM DD',
-                   'hour': 'MMM DD',
-                   'day': 'MMM DD',
-                   'week': 'MMM DD',
-                   'month': 'MMM DD',
-                   'quarter': 'MMM DD',
-                   'year': 'MMM DD',
-                }]
-          }
+            }],
+            yAxes: [{
+              ticks: {
+                min: 0,
+                max: 100,
+                stepSize: 10
+              }
+            }]
+          },
         }
       });
     }
@@ -156,8 +151,8 @@ class App extends React.Component {
               <div id="percent-box" className="col-md-6 col-xs-12">
                 <canvas id="pcChart" width="400px" height="400px"></canvas>
               </div>
-              <div id="percent-box" className="col-md-6 col-xs-12">
-                <canvas id="hsChart" width="400px" height="400px"></canvas>
+              <div id="time-box" style={{maxWidth: '1024px', maxHeight: '500px'}} className="col-xs-12">
+                <canvas id="hsChart" width="1024" height="500"></canvas>
               </div>
             </div>
           </div>
