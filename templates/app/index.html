@@ -3,8 +3,8 @@
 
 {% block content %}
   <div id="search">
-    <img id="main-logo" src="{% static 'socialtone_main.png' %}" height="120" width="500">
-    <form class="" action="/search" method="get">
+    <img id="main-logo" src="{% static 'img/socialtone_main.png' %}">
+    <form class="" action="{% url 'app:search' %}" method="get">
       <div class="input-group">
         <input class="form-control" type="text" name="s" placeholder="Search for anything...">
         <span class="input-group-btn">
