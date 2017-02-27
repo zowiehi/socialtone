@@ -36,21 +36,21 @@ def analyze(req):
         positive_average += positive_percent
 
         anger_tone = list(filter(lambda x: x.get('tone_id') == 'anger', tones.get('document_tone').get('tone_categories')[0].get('tones')))
-        negativePercent = anger_tone[0].get('score')
-        anger_average += anger_tone[0].get('score')
+        anger_percent = anger_tone[0].get('score')
+        anger_average += anger_percent
 
         sadness_tone = list(filter(lambda x: x.get('tone_id') == 'sadness', tones.get('document_tone').get('tone_categories')[0].get('tones')))
-        negativePercent += sadness_tone[0].get('score')
-        sadness_average += sadness_tone[0].get('score')
+        sadness_percent += sadness_tone[0].get('score')
+        sadness_average += sadness_percent
 
         disgust_tone = list(filter(lambda x: x.get('tone_id') == 'disgust', tones.get('document_tone').get('tone_categories')[0].get('tones')))
-        negativePercent += disgust_tone[0].get('score')
-        disgust_average += disgust_tone[0].get('score')
+        disgust_percent += disgust_tone[0].get('score')
+        disgust_average += disgust_percent
 
         score = positive_percent * 5
         twitter_average += score
 
-        if(positive_percent >= 0.5):
+        if(positive_percent >= sadness_percent && positive_percent >= anger_percent && positive_percent >= disgust_percent):
             positive_count += 1
 
 
