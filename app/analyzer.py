@@ -50,7 +50,7 @@ def analyze(req):
         score = positive_percent * 5
         twitter_average += score
 
-        if(positive_percent >= sadness_percent && positive_percent >= anger_percent && positive_percent >= disgust_percent):
+        if(positive_percent >= sadness_percent and positive_percent >= anger_percent and positive_percent >= disgust_percent):
             positive_count += 1
 
 
